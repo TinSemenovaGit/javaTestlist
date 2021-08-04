@@ -24,6 +24,7 @@ public class JavaTestlist {
         String usrchoice = "";
         
         while (!"0".equals(s)){
+
             System.out.println("Start javaTestlist");
             System.out.println("Overturning of line - Enter 1");
             System.out.println("Reversing sequens of symbols - Enter 2");
@@ -34,11 +35,15 @@ public class JavaTestlist {
             try {
                 x = Integer.parseInt(s);
             } catch (NumberFormatException e) {
-                System.out.println("Error of Enter | LAST");
-                //usrchoice = "Error - Use digits from 0 to 9";
+                System.out.println("Error of Enter");
+                x = -1;
             }
             
             switch (x){
+                case -1:
+                    //Error
+                    usrchoice = "Use digits from 0 to 9";
+                    break;
                 case 0:
                     //Exit
                     usrchoice = "Exit";
@@ -62,6 +67,7 @@ public class JavaTestlist {
             }
             
             System.out.println(usrchoice);
+
         }
         System.out.println("Bye!");
      
