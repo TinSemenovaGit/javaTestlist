@@ -45,11 +45,20 @@ public class JavaTestlist {
     public static void printDataIn(String line){
         System.out.println("Data-in: " + line);
     }
+    
+   public static void printDataIn(int num){
+        System.out.println("Data-in: " + num);
+    }
 
-    public static void printDataIn(String line, int num){
+    public static void printData(String line, int num){
         System.out.println(line + num);
     }
-        
+
+    public static void printData(int first, int second){
+        System.out.println("First value = " + first);
+        System.out.println("Second value = " + second);
+    }
+    
     public static void printDataOut(){
         System.out.println("Data-out: ");
     }
@@ -69,11 +78,11 @@ public class JavaTestlist {
 
     public static String ReversingSequensOfSymbols (String line, int num){
         printDataIn(line);
-        printDataIn("Quantity of symbols: ", num);
+        printData("Quantity of symbols: ", num);
         String reversingline = "";
         char[] extractfromline = line.toCharArray();
         if (num > extractfromline.length) {
-            printDataIn("Quantity reduced to : ", extractfromline.length);
+            printData("Quantity reduced to : ", extractfromline.length);
         }
         for (int i = 0; i < extractfromline.length; i = i + num){
             for (int j = num; j > 0; j--){
@@ -89,26 +98,27 @@ public class JavaTestlist {
     
     public static void changingValuesWithThird(int numFirst, int numSecond){
         int tmp;
-        printDataIn("First value = ", numFirst);
-        printDataIn("Second value = ", numSecond);
+        printDataIn();
+        printData(numFirst, numSecond);
         tmp = numFirst;
         numFirst = numSecond;
         numSecond = tmp;
-        printDataIn("First value = ", numFirst);
-        printDataIn("Second value = ", numSecond);
+        printDataOut();
+        printData(numFirst, numSecond);
     }
 
     public static void changingValuesWithoutThird(int numFirst, int numSecond){
-        printDataIn("First value = ", numFirst);
-        printDataIn("Second value = ", numSecond);
+        printDataIn();
+        printData(numFirst, numSecond);
         numFirst = numFirst + numSecond;
         numSecond = numFirst - numSecond;
         numFirst = numFirst - numSecond;
-        printDataIn("First value = ", numFirst);
-        printDataIn("Second value = ", numSecond);
+        printDataOut();
+        printData(numFirst, numSecond);
     }
     
     public static int CountingWordsWithHashMap (String line){
+        printDataIn(line);
         Map<String, Integer> wordsinline = new HashMap<>();
         int words = 0;
         String word = "";
@@ -134,6 +144,20 @@ public class JavaTestlist {
         System.out.println("Quantity different words : " + wordsinline.size());
         return words;
     }
+
+    public static HashMap<String, Integer> generateIntegerValues(int quantityvalues, int maxnumber){
+        HashMap<String, Integer> randomvalues = new HashMap<>();
+        //if (quantityvalues > 9) quantityvalues == 9;//limit
+        int number;
+        Random random = new Random();
+            for (int i = 0; i < quantityvalues; i++){
+                number = random.nextInt(maxnumber);
+                System.out.println(i + ": next number " + number);
+                String strkey = "Number " + i;
+                randomvalues.put(strkey, number);
+            }
+        return randomvalues;
+    }
     
     public static void IterationObjectHashMap (HashMap<String, Integer> hashmap){
         //Map<String, Integer> wordsinline = new HashMap<>();
@@ -147,17 +171,14 @@ public class JavaTestlist {
             Map.Entry pair = (Map.Entry)it.next();
             System.out.println(pair.getKey() + " = " + pair.getValue());
             it.remove(); // avoids a ConcurrentModificationException
-    }
+        }
     }
     
     public static boolean CheckingOnPrimeNumber(int number){
         int n = 1;
         int i = 2;
         boolean result = true;
-        //for (int i = 2; i < number; i++){
-        //    n = number % i;
-        //}
-        while (n!=0 & (number > i)){
+        while (n !=0 & (number > i)){
             n = number % i;
             i++;
         }
@@ -169,7 +190,6 @@ public class JavaTestlist {
 
     public static boolean CheckingOnPalindrome(String line){
         char[] extractfromline = line.toCharArray();
-        //char[] symbolsfromline;
         ArrayList symbolsfromline = new ArrayList();
         int size = extractfromline.length;
         for (int m = 0; m < size; m++){
@@ -177,23 +197,18 @@ public class JavaTestlist {
                 symbolsfromline.add(extractfromline[m]);
             }
         }
-        //for (int j = 0; j < size; j++){
-        //    System.out.println(extractfromline[j]); 
+        //for (int j = 0; j < symbolsfromline.size(); j++){
+        //    System.out.println(symbolsfromline.get(j)); 
         //}
-        for (int j = 0; j < symbolsfromline.size(); j++){
-            System.out.println(symbolsfromline.get(j)); 
-        }
         int k = 0;
         int i = 0;
         boolean result = false;
         size = symbolsfromline.size();
-        //for (int i = 0; i <= size / 2; i++){
             while(i <= size/2 & symbolsfromline.get(i) == (symbolsfromline.get(size-1-i))){
                 result = true;
                 k++;
                 i++;
             }
-        //}
         if (result == true & (k == size/2 || k == size/2+1)){
             result = true;
         } else {
@@ -235,25 +250,77 @@ public class JavaTestlist {
         }
         return num;
     }
+
+    public static boolean useDefaultValues(){
+        Scanner scan = new Scanner(System.in);
+        boolean answer = true;
+        String str = "";
+        char c = 'y';
+        //while (!"0".equals(str)){
+        System.out.println("Use default values? y/n ");//(0 - for exit)
+            str = scan.next();
+            try {
+                c = str.charAt(0);
+            } catch (NumberFormatException e) {
+                System.out.println("Error of Enter");
+            }
+        //}
+        if ('n' == c){
+            answer = false;
+        }
+        System.out.println("Default values: ");
+        return answer;
+    }
+
+//choice yes/no
+    public static boolean choice(String str){
+        Scanner scan = new Scanner(System.in);
+        boolean answer = true;
+        String s = "";
+        char c = 'y';
+        //while (!"0".equals(str)){
+        System.out.println(str);//(0 - for exit)
+            s = scan.next();
+            try {
+                c = s.charAt(0);
+            } catch (NumberFormatException e) {
+                System.out.println("Error of Enter");
+            }
+        //}
+        if ('n' == c){
+            answer = false;
+        }
+        return answer;
+    }    
     
     public static void main(String[] args) {
         // TODO code application logic here
         Scanner scan = new Scanner(System.in);
-        String defaultline = "No comments.";//CatTom in flat.
+        //initialization default values
+        String defaultline = "Tom my catty my love.";//CatTom in flat.
+        String defaultpalindrome = "some men interpret nine memos";
+        boolean defaultvalues = true;
+        boolean defaultchoise = true;
         int defaultnum = 3;
+        int dafaultFibonacci = 10;
         String strCustom = "";
         int numCustom = 1;
-        int [] arrayNum = {3, 7, 11, 9};
+        int [] arrayNum = {3, 7, 21, 9};//array of input numbers//try to use HashMap
         
         int x = 0;
-        int valueone = 0;
-        int valuetwo = 0;
+
         String s = "";
         String scase = "";
         String usrchoice = "";
         
         while (!"0".equals(s)){
+            //consoleMenu();
+            defaultchoise = choice("Show maim menu? y/n");
+            if (defaultchoise == true){
             consoleMenu();
+            }else{
+                System.out.println("Program is over. 0 - for Exit");
+            }
             s = scan.next();
             
             try {
@@ -274,8 +341,11 @@ public class JavaTestlist {
                     break;
                 case 1:
                     //Overturning of line
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
                     String strTurn = OverturningOfLine(defaultline);
                     printDataOut(strTurn);
+                    } 
                     strCustom = customInLine();
                     strCustom = OverturningOfLine(strCustom);
                     printDataOut(strCustom);
@@ -283,8 +353,11 @@ public class JavaTestlist {
                     break;
                 case 2:
                     //Reversing sequens of symbols
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
                     String strReverse = ReversingSequensOfSymbols(defaultline, defaultnum);
-                    System.out.println(strReverse);                    
+                    printDataOut(strReverse);
+                    }
                     strCustom = customInLine();
                     numCustom = customInNumber();
                     strCustom = ReversingSequensOfSymbols(strCustom, numCustom);
@@ -293,9 +366,11 @@ public class JavaTestlist {
                     break;
                 case 3:
                     //Changing values with third
-                    //System.out.println();
-                    //System.out.println("Default values: ");
+                    //default values
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
                     changingValuesWithThird(defaultnum, defaultnum+1);
+                    }
                     //user values
                     arrayNum[0] = customInNumber();
                     arrayNum[1] = customInNumber();
@@ -304,7 +379,10 @@ public class JavaTestlist {
                     break;
                 case 4:
                     //Changing values without third
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
                     changingValuesWithoutThird(defaultnum, defaultnum+1);
+                    }
                     arrayNum[0] = customInNumber();
                     arrayNum[1] = customInNumber();
                     changingValuesWithoutThird(arrayNum[0], arrayNum[1]);
@@ -312,38 +390,68 @@ public class JavaTestlist {
                     break;
                 case 5:
                     //Counting words with HashMap
-                    int allwords = CountingWordsWithHashMap("tom my catty my love");
+                    int allwords;
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
+                    allwords = CountingWordsWithHashMap(defaultline);
+                    System.out.println("Quantity all words : " + allwords);
+                    }
+                    strCustom = customInLine();
+                    allwords = CountingWordsWithHashMap(strCustom);
                     System.out.println("Quantity all words : " + allwords);
                     usrchoice = "Ending 5 - Counting words with HashMap";
                     break;
                 case 6:
                     //Iteration of object HashMap
-                    Map<String, Integer> randomvalues = new HashMap<>();
-                    Random random = new Random();
-                    for (int i = 0; i < 6; i++){
-                        int number = random.nextInt(25);
-                        System.out.println(i + ": next number " + number);
-                        String strkey = "Number " + i;
-                        randomvalues.put(strkey, number);
-                    }
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
+                    HashMap<String, Integer> randomvalues = generateIntegerValues (arrayNum[1], arrayNum[2]);
                     IterationObjectHashMap ((HashMap<String, Integer>) randomvalues);
-                    usrchoice = "6 - Iteration of object HashMap";
+                    }
+                    arrayNum[1] = customInNumber();
+                    arrayNum[2] = customInNumber();
+                    HashMap<String, Integer> randomvalues = generateIntegerValues (arrayNum[1], arrayNum[2]);
+                    IterationObjectHashMap ((HashMap<String, Integer>) randomvalues);                    
+                    usrchoice = "Ending 6 - Iteration of object HashMap";
                     break;
                 case 7:
                     //Checking on prime number
-                    boolean prime = CheckingOnPrimeNumber(11);
-                    System.out.println("11 - is prime? - " + prime);
+                    boolean prime;
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
+                    prime = CheckingOnPrimeNumber(defaultnum);
+                    printDataIn(defaultnum);
+                    System.out.println(defaultnum + " - is prime? - " + prime);
+                    }
+                    numCustom = customInNumber();
+                    prime = CheckingOnPrimeNumber(numCustom);
+                    printDataIn(numCustom);
+                    System.out.println(numCustom + " - is prime? - " + prime);
                     usrchoice = "Ending 7 - Checking on prime number";
                     break;
                 case 8:
                     //Checking on palindrome
-                    boolean palindrome = CheckingOnPalindrome("some men interpret nine memos");
-                    System.out.println("some men interpret nine memos - is palindrome? - " + palindrome);
+                    boolean palindrome;
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
+                    palindrome = CheckingOnPalindrome(defaultpalindrome);
+                    printDataIn(defaultpalindrome);
+                    System.out.println(defaultpalindrome + " - is palindrome? - " + palindrome);
+                    }
+                    strCustom = customInLine();
+                    palindrome = CheckingOnPalindrome(strCustom);
+                    printDataIn(strCustom);
+                    System.out.println(strCustom + " - is palindrome? - " + palindrome);
                     usrchoice = "Ending 8 - Checking on palindrome";
                     break;
                 case 9:
                     //Fibonacci numbers
-                    FibonacciNumbers(10);
+                    defaultvalues = useDefaultValues();
+                    if (defaultvalues == true) {
+                    FibonacciNumbers(dafaultFibonacci);
+                    }
+                    numCustom = customInNumber();
+                    FibonacciNumbers(numCustom);
                     usrchoice = "Ending 9 - Fibonacci numbers";
                     break;
                 default:
